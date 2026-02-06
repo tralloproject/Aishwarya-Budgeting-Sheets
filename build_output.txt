@@ -1,0 +1,51 @@
+[INFO] Generating build script...
+[INFO] Generating build script completed, took 474ms
+
+[INFO] Precompiling build script......
+[INFO] Precompiling build script... completed, took 9.0s
+
+[INFO] Initializing inputs
+[INFO] Building new asset graph...
+[INFO] Building new asset graph completed, took 3.8s
+
+[INFO] Checking for unexpected pre-existing outputs....
+[INFO] Checking for unexpected pre-existing outputs. completed, took 1ms
+
+[INFO] Running build...
+[INFO] Generating SDK summary...
+[INFO] 3.8s elapsed, 0/6 actions completed.
+[WARNING] hive_generator on test/widget_test.dart:
+Your current `analyzer` version may not fully support your current SDK version.
+
+Analyzer language version: 3.4.0
+SDK language version: 3.10.0
+
+Please update to the latest `analyzer` version (10.0.2) by running
+`flutter packages upgrade`.
+
+If you are not getting the latest version by running the above command, you
+can try adding a constraint like the following to your pubspec to start
+diagnosing why you can't get the latest version:
+
+dev_dependencies:
+  analyzer: ^10.0.2
+
+[INFO] 7.3s elapsed, 0/6 actions completed.
+[INFO] 9.0s elapsed, 0/6 actions completed.
+[INFO] Generating SDK summary completed, took 9.0s
+
+[SEVERE] hive_generator on lib/main.dart:
+
+This builder requires Dart inputs without syntax errors.
+However, package:aishwarya_budget_app/main.dart (or an existing part) contains the following errors.
+main.dart:31:22: Expected an identifier.
+main.dart:105:30: Expected an identifier.
+
+Try fixing the errors and re-running the build.
+
+[INFO] Running build completed, took 10.2s
+
+[INFO] Caching finalized dependency graph...
+[INFO] Caching finalized dependency graph completed, took 120ms
+
+[SEVERE] Failed after 10.3s
