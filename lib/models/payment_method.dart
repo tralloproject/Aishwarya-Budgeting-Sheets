@@ -13,9 +13,13 @@ class PaymentMethod extends HiveObject {
   @HiveField(2)
   final int iconCodePoint;
 
+  @HiveField(3, defaultValue: 0.0)
+  final double initialBalance;
+
   PaymentMethod({
     required this.id,
     required this.name,
     required this.iconCodePoint,
+    this.initialBalance = 0.0,
   });
 }

@@ -4,6 +4,7 @@ import 'services/storage_service.dart';
 import 'providers/expense_provider.dart';
 import 'utils/app_theme.dart';
 import 'screens/dashboard_screen.dart';
+import 'screens/setup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,11 @@ class BudgetBuddyApp extends StatelessWidget {
         title: 'Budget Buddy',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        home: const DashboardScreen(),
+        home: Consumer<ExpenseProvider>(
+          builder: (context, provider, _) {
+            return provider.isSetupComplete ? const DashboardScreen() : const SetupScreen();
+          },
+        ),
       ),
     );
   }
