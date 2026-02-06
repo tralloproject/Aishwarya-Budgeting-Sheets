@@ -78,4 +78,26 @@ void main() {
     expect(provider.getSpentByCategoryHKD('cat1'), 80.0);
     expect(provider.getSpentByCategoryHKD('cat2'), 20.0);
   });
+
+  test('Remaining balance is calculated from payment method initial balances', () async {
+    final provider = ExpenseProvider();
+
+    // Add payment methods with initial balances
+    provider.addPaymentMethod(PaymentMethod(id: '1', name: 'Cash', iconCodePoint: 0, initialBalance: 1000.0));
+    provider.addPaymentMethod(PaymentMethod(id: '2', name: 'Bank', iconCodePoint: 0, initialBalance: 5000.0));
+
+    // Add an expense
+    provider.addExpense(Expense(
+      id: 'e1',
+      date: DateTime.now(),
+      categoryId: 'cat1',
+      description: 'Test',
+      paymentMethodId: '1',
+      amountHKD: 200.0,
+      amountUSD: 25.0,
+    ));
+
+    // Remaining balance should be (1000 + 5000) - 200 = 5800
+    expect(provider.getRemainingBalanceHKD(), 5800.0);
+  });
 }

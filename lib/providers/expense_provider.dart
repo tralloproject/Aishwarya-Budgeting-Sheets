@@ -24,7 +24,6 @@ class ExpenseProvider with ChangeNotifier {
 
   ExpenseProvider() {
     _loadExchangeRate();
-    _loadBalance();
     _detectLocation();
   }
 
@@ -79,22 +78,28 @@ class ExpenseProvider with ChangeNotifier {
     return expenses.fold(0, (sum, item) => sum + item.amountHKD);
   }
 
-  double _initialBalanceHKD = 10000.0; // Default
-  double get initialBalanceHKD => _initialBalanceHKD;
 
-  Future<void> _loadBalance() async {
-    _initialBalanceHKD = _settingsBox.get('initialBalance', defaultValue: 10000.0);
+  bool get isSetupComplete => _settingsBox.get('isSetupComplete', defaultValue: false);
+
+  void completeSetup() {
+    _settingsBox.put('isSetupComplete', true);
     notifyListeners();
   }
 
-  void setInitialBalance(double balance) {
-    _initialBalanceHKD = balance;
-    _settingsBox.put('initialBalance', balance);
+  void addPaymentMethod(PaymentMethod pm) {
+    _pmBox.put(pm.id, pm);
+    notifyListeners();
+  }
+
+  void updatePaymentMethod(PaymentMethod pm) {
+    _pmBox.put(pm.id, pm);
     notifyListeners();
   }
 
   double getRemainingBalanceHKD() {
-    return _initialBalanceHKD - getTotalSpentHKD();
+    double totalInitial = paymentMethods.fold(0, (sum, pm) => sum + pm.initialBalance);
+    double totalSpent = allExpenses.fold(0, (sum, e) => sum + e.amountHKD);
+    return totalInitial - totalSpent;
   }
 
   double getSpentByCategoryHKD(String categoryId) {
